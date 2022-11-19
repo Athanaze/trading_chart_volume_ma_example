@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	<title>Trading chart with volume and moving average</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script type="text/javascript" src="chart.js"></script>
+
+	<style id="compiled-css" type="text/css">
+		html,
+		body {
+			font-family: 'Trebuchet MS', Roboto, Ubuntu, sans-serif;
+			background: #f9fafb;
+			-webkit-font-smoothing: antialiased;
+			-moz-osx-font-smoothing: grayscale;
+		}
+
+		.sma-legend {
+			width: 96px;
+			height: 70px;
+			position: absolute;
+			padding: 8px;
+			font-size: 14px;
+			background-color: rgba(255, 255, 255, 0.23);
+			text-align: left;
+			z-index: 1000;
+			pointer-events: none;
+		}
+	</style>
+
+	<script id="insert"></script>
+</head>
+
+<body style="position: relative;">
+	<script type="text/javascript">
+		document.body.style.position = 'relative';
+
+		var container = document.createElement('div');
+		document.body.appendChild(container);
+
+		var width = 600;
+		var height = 300;
+
+		var chart = LightweightCharts.createChart(container, {
+			width: width,
+			height: height,
+			crosshair: {
+				mode: LightweightCharts.CrosshairMode.Normal,
+			},
+		});
+
+		var candleSeries = chart.addCandlestickSeries();
+		var volumeSeries = chart.addHistogramSeries({
+			color: '#26a69a',
+			priceFormat: {
+				type: 'volume',
+			},
+			priceScaleId: '',
+			scaleMargins: {
+				top: 0.8,
+				bottom: 0,
+			},
+		});
+		volumeSeries.setData([
+			{ time: '2018-10-19', value: 19103293.00, color: 'rgba(0, 150, 136, 0.8)' },
+			{ time: '2018-10-20', value: 19103293.00, color: 'rgba(0, 150, 136, 0.8)' },
+			{ time: '2018-10-21', value: 19103293.00, color: 'rgba(0, 150, 136, 0.8)' },
+			{ time: '2018-10-22', value: 21737523.00, color: 'rgba(0, 150, 136, 0.8)' },
+			{ time: '2018-10-23', value: 29328713.00, color: 'rgba(0, 150, 136, 0.8)' },
+			{ time: '2018-10-24', value: 37435638.00, color: 'rgba(0, 150, 136, 0.8)' },
+			{ time: '2018-10-25', value: 25269995.00, color: 'rgba(255,82,82, 0.8)' },
+			{ time: '2018-10-26', value: 24973311.00, color: 'rgba(255,82,82, 0.8)' },
+			{ time: '2018-10-27', value: 19103293.00, color: 'rgba(255,82,82, 0.8)' },
+			{ time: '2018-10-28', value: 24973311.00, color: 'rgba(255,82,82, 0.8)' },
+			{ time: '2018-10-29', value: 22103692.00, color: 'rgba(0, 150, 136, 0.8)' },
+			{ time: '2018-10-30', value: 25231199.00, color: 'rgba(0, 150, 136, 0.8)' },
+			{ time: '2018-10-31', value: 24214427.00, color: 'rgba(255,82,82, 0.8)' },
+			{ time: '2018-11-01', value: 22533201.00, color: 'rgba(255,82,82, 0.8)' },
+			{ time: '2018-11-02', value: 14734412.00, color: 'rgba(0, 150, 136, 0.8)' },
+			{ time: '2018-11-03', value: 25269995.00, color: 'rgba(0, 150, 136, 0.8)' },
+			{ time: '2018-11-04', value: 25269995.00, color: 'rgba(0, 150, 136, 0.8)' },
+			{ time: '2018-11-05', value: 12733842.00, color: 'rgba(0, 150, 136, 0.8)' },
+			{ time: '2018-11-06', value: 12371207.00, color: 'rgba(0, 150, 136, 0.8)' },
+			{ time: '2018-11-07', value: 14891287.00, color: 'rgba(0, 150, 136, 0.8)' },
+			{ time: '2018-11-08', value: 12482392.00, color: 'rgba(0, 150, 136, 0.8)' },
+			{ time: '2018-11-09', value: 17365762.00, color: 'rgba(0, 150, 136, 0.8)' },
+			{ time: '2018-11-10', value: 17365762.00, color: 'rgba(0, 150, 136, 0.8)' },
+			{ time: '2018-11-11', value: 17147123.00, color: 'rgba(0, 150, 136, 0.8)' },
+			{ time: '2018-11-12', value: 13236769.00, color: 'rgba(0, 150, 136, 0.8)' },
+			{ time: '2018-11-13', value: 13047907.00, color: 'rgba(255,82,82, 0.8)' },
+			{ time: '2018-11-14', value: 18288710.00, color: 'rgba(0, 150, 136, 0.8)' },
+			{ time: '2018-11-15', value: 17147123.00, color: 'rgba(0, 150, 136, 0.8)' },
+			{ time: '2018-11-16', value: 19470986.00, color: 'rgba(0, 150, 136, 0.8)' },
+			{ time: '2018-11-17', value: 22103692.00, color: 'rgba(0, 150, 136, 0.8)' },
+			{ time: '2018-11-18', value: 18482233.00, color: 'rgba(0, 150, 136, 0.8)' },
+			{ time: '2018-11-19', value: 18405731.00, color: 'rgba(0, 150, 136, 0.8)' },
+			{ time: '2018-11-20', value: 22028957.00, color: 'rgba(255,82,82, 0.8)' },
+			{ time: '2018-11-21', value: 18482233.00, color: 'rgba(255,82,82, 0.8)' },
+			{ time: '2018-11-22', value: 18482233.00, color: 'rgba(255,82,82, 0.8)' },
+			{ time: '2018-11-23', value: 7009050.00, color: 'rgba(255,82,82, 0.8)' },
+			{ time: '2018-11-24', value: 7009050.00, color: 'rgba(255,82,82, 0.8)' },
+			{ time: '2018-11-25', value: 7009050.00, color: 'rgba(255,82,82, 0.8)' },
+			{ time: '2018-11-26', value: 12308876.00, color: 'rgba(0, 150, 136, 0.8)' },
+			{ time: '2018-11-27', value: 14118867.00, color: 'rgba(0, 150, 136, 0.8)' },
+			{ time: '2018-11-28', value: 18662989.00, color: 'rgba(255,82,82, 0.8)' },
+			{ time: '2018-11-29', value: 14763658.00, color: 'rgba(255,82,82, 0.8)' },
+			{ time: '2018-11-30', value: 31142818.00, color: 'rgba(0, 150, 136, 0.8)' },
+			{ time: '2018-12-01', value: 27795428.00, color: 'rgba(255,82,82, 0.8)' },
+			{ time: '2018-12-02', value: 27795428.00, color: 'rgba(255,82,82, 0.8)' },
+			{ time: '2018-12-03', value: 27795428.00, color: 'rgba(255,82,82, 0.8)' },
+			{ time: '2018-12-04', value: 21727411.00, color: 'rgba(255,82,82, 0.8)' },
+			{ time: '2018-12-05', value: 21727411.00, color: 'rgba(255,82,82, 0.8)' },
+			{ time: '2018-12-06', value: 26880429.00, color: 'rgba(255,82,82, 0.8)' },
+			{ time: '2018-12-07', value: 16948126.00, color: 'rgba(255,82,82, 0.8)' },
+			{ time: '2018-12-08', value: 16948126.00, color: 'rgba(255,82,82, 0.8)' },
+			{ time: '2018-12-09', value: 16948126.00, color: 'rgba(255,82,82, 0.8)' },
+			{ time: '2018-12-10', value: 16603356.00, color: 'rgba(0, 150, 136, 0.8)' },
+			{ time: '2018-12-11', value: 14991438.00, color: 'rgba(0, 150, 136, 0.8)' },
+			{ time: '2018-12-12', value: 18892182.00, color: 'rgba(255,82,82, 0.8)' },
+			{ time: '2018-12-13', value: 15454706.00, color: 'rgba(255,82,82, 0.8)' },
+			{ time: '2018-12-14', value: 13960870.00, color: 'rgba(255,82,82, 0.8)' },
+			{ time: '2018-12-15', value: 13960870.00, color: 'rgba(255,82,82, 0.8)' },
+			{ time: '2018-12-16', value: 27795428.00, color: 'rgba(255,82,82, 0.8)' },
+			{ time: '2018-12-17', value: 18902523.00, color: 'rgba(255,82,82, 0.8)' },
+			{ time: '2018-12-18', value: 18895777.00, color: 'rgba(255,82,82, 0.8)' },
+			{ time: '2018-12-19', value: 20968473.00, color: 'rgba(0, 150, 136, 0.8)' },
+			{ time: '2018-12-20', value: 26897008.00, color: 'rgba(255,82,82, 0.8)' },
+			{ time: '2018-12-21', value: 55413082.00, color: 'rgba(255,82,82, 0.8)' },
+			{ time: '2018-12-22', value: 55413082.00, color: 'rgba(255,82,82, 0.8)' },
+			{ time: '2018-12-23', value: 55413082.00, color: 'rgba(255,82,82, 0.8)' },
+			{ time: '2018-12-24', value: 15077207.00, color: 'rgba(255,82,82, 0.8)' },
+			{ time: '2018-12-25', value: 15331758.00, color: 'rgba(255,82,82, 0.8)' },
+			{ time: '2018-12-26', value: 17970539.00, color: 'rgba(0, 150, 136, 0.8)' },
+			{ time: '2018-12-27', value: 17530977.00, color: 'rgba(0, 150, 136, 0.8)' },
+			{ time: '2018-12-28', value: 14771641.00, color: 'rgba(0, 150, 136, 0.8)' },
+			{ time: '2018-12-29', value: 14771641.00, color: 'rgba(0, 150, 136, 0.8)' },
+			{ time: '2018-12-30', value: 26880429.00, color: 'rgba(0, 150, 136, 0.8)' },
+			{ time: '2018-12-31', value: 15331758.00, color: 'rgba(0, 150, 136, 0.8)' }]);
+		var data = generateBarsData();
+		candleSeries.setData(data);
+
+		var smaData = calculateSMA(data, 10);
+		var smaLine = chart.addLineSeries({
+			color: 'rgba(4, 111, 232, 1)',
+			lineWidth: 2,
+		});
+		smaLine.setData(smaData);
+
+		var legend = document.createElement('div');
+		legend.className = 'sma-legend';
+		container.appendChild(legend);
+		legend.style.display = 'block';
+		legend.style.left = 3 + 'px';
+		legend.style.top = 3 + 'px';
+
+		function setLegendText(priceValue) {
+			let val = '';
+			if (priceValue !== undefined) {
+				val = (Math.round(priceValue * 100) / 100).toFixed(2);
+			}
+			legend.innerHTML = 'MA10 <span style="color:rgba(4, 111, 232, 1)">' + val + '</span>';
+		}
+
+		setLegendText(smaData[smaData.length - 1].value);
+
+		chart.subscribeCrosshairMove((param) => {
+			setLegendText(param.seriesPrices.get(smaLine));
+		});
+
+		function calculateSMA(data, count) {
+			var avg = function (data) {
+				var sum = 0;
+				for (var i = 0; i < data.length; i++) {
+					sum += data[i].close;
+				}
+				return sum / data.length;
+			};
+			var result = [];
+			for (var i = count - 1, len = data.length; i < len; i++) {
+				var val = avg(data.slice(i - count + 1, i));
+				result.push({ time: data[i].time, value: val });
+			}
+			return result;
+		}
+
+		function generateBarsData(period) {
+			var res = [];
+			var controlPoints = generateControlPoints(res, period);
+			for (var i = 0; i < controlPoints.length - 1; i++) {
+				var left = controlPoints[i];
+				var right = controlPoints[i + 1];
+				fillBarsSegment(left, right, res);
+			}
+			return res;
+		}
+
+		function fillBarsSegment(left, right, points) {
+			var deltaY = right.price - left.price;
+			var deltaX = right.index - left.index;
+			var angle = deltaY / deltaX;
+			for (var i = left.index; i <= right.index; i++) {
+				var basePrice = left.price + (i - left.index) * angle;
+				var openNoise = (0.1 - Math.random() * 0.2) + 1;
+				var closeNoise = (0.1 - Math.random() * 0.2) + 1;
+				var open = basePrice * openNoise;
+				var close = basePrice * closeNoise;
+				var high = Math.max(basePrice * (1 + Math.random() * 0.2), open, close);
+				var low = Math.min(basePrice * (1 - Math.random() * 0.2), open, close);
+				points[i].open = open;
+				points[i].high = high;
+				points[i].low = low;
+				points[i].close = close;
+			}
+		}
+
+		function generateControlPoints(res, period, dataMultiplier) {
+			var time = period !== undefined ? period.timeFrom : { day: 1, month: 1, year: 2018 };
+			var timeTo = period !== undefined ? period.timeTo : { day: 1, month: 1, year: 2019 };
+			var days = getDiffDays(time, timeTo);
+			dataMultiplier = dataMultiplier || 1;
+			var controlPoints = [];
+			controlPoints.push({ index: 0, price: getRandomPrice() * dataMultiplier });
+			for (var i = 0; i < days; i++) {
+				if (i > 0 && i < days - 1 && Math.random() < 0.05) {
+					controlPoints.push({ index: i, price: getRandomPrice() * dataMultiplier });
+				}
+				res.push({ time: time });
+				time = nextBusinessDay(time);
+			}
+			controlPoints.push({ index: res.length - 1, price: getRandomPrice() * dataMultiplier });
+			return controlPoints;
+		}
+
+		function getDiffDays(dateFrom, dateTo) {
+			var df = convertBusinessDayToUTCTimestamp(dateFrom);
+			var dt = convertBusinessDayToUTCTimestamp(dateTo);
+			var diffTime = Math.abs(dt.getTime() - df.getTime());
+			return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+		}
+
+		function convertBusinessDayToUTCTimestamp(date) {
+			return new Date(Date.UTC(date.year, date.month - 1, date.day, 0, 0, 0, 0));
+		}
+
+		function nextBusinessDay(time) {
+			var d = convertBusinessDayToUTCTimestamp({ year: time.year, month: time.month, day: time.day + 1 });
+			return { year: d.getUTCFullYear(), month: d.getUTCMonth() + 1, day: d.getUTCDate() };
+		}
+
+		function getRandomPrice() {
+			return 10 + Math.round(Math.random() * 10000) / 100;
+		}
+	</script>
+	<div>
+		<div class="tv-lightweight-charts"
+			style="overflow: hidden; width: 600px; height: 300px; user-select: none; -webkit-tap-highlight-color: transparent;">
+			<table cellspacing="0" style="height: 300px; width: 600px;">
+				<tr>
+					<td style="padding: 0px;"></td>
+					<td style="padding: 0px; position: relative; width: 546px; height: 274px;">
+						<div style="width: 100%; height: 100%; position: relative; overflow: hidden;"><canvas
+								width="546" height="274"
+								style="width: 546px; height: 274px; position: absolute; z-index: 1; left: 0px; top: 0px;"></canvas><canvas
+								width="546" height="274"
+								style="width: 546px; height: 274px; position: absolute; z-index: 2; left: 0px; top: 0px;"></canvas>
+						</div>
+					</td>
+					<td style="padding: 0px;">
+						<div
+							style="height: 274px; overflow: hidden; width: 54px; left: 0px; position: relative; min-width: 54px; cursor: default;">
+							<canvas width="54" height="274"
+								style="width: 54px; height: 274px; position: absolute; z-index: 1; left: 0px; top: 0px;"></canvas><canvas
+								width="54" height="274"
+								style="width: 54px; height: 274px; position: absolute; z-index: 2; left: 0px; top: 0px;"></canvas>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td style="padding: 0px;"></td>
+					<td style="height: 26px; padding: 0px; width: 546px; cursor: default;">
+						<div style="width: 100%; height: 100%; position: relative; overflow: hidden;"><canvas
+								width="546" height="26"
+								style="width: 546px; height: 26px; position: absolute; z-index: 1; left: 0px; top: 0px;"></canvas><canvas
+								width="546" height="26"
+								style="width: 546px; height: 26px; position: absolute; z-index: 2; left: 0px; top: 0px;"></canvas>
+						</div>
+					</td>
+					<td style="padding: 0px;">
+						<div style="width: 54px; height: 26px; overflow: hidden; min-width: 54px;"><canvas width="54"
+								height="26" style="width: 54px; height: 26px;"></canvas></div>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div class="sma-legend" style="display: block; left: 3px; top: 3px;">MA10 <span
+				style="color:rgba(4, 111, 232, 1)"></span></div>
+	</div>
+
+	<script>
+		// tell the embed parent frame the height of the content
+		if (window.parent && window.parent.parent) {
+			window.parent.parent.postMessage(["resultsFrame", {
+				height: document.body.getBoundingClientRect().height,
+				slug: "j91rw08m"
+			}], "*")
+		}
+
+		// always overwrite window.name, in case users try to set it manually
+		window.name = "result"
+	</script>
+</body>
+
+</html>
